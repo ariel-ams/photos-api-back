@@ -64,7 +64,7 @@ app.post("/api/register", function (request, response) {
 
       response.status(200).json({
         success: true,
-        user: doc,
+        user: doc._id,
       });
     });
   });
