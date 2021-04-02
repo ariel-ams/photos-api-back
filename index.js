@@ -95,13 +95,14 @@ app.post("/api/login", function (request, response) {
               message: "password does not match",
             });
 
-          user.generateToken((err, user) => {
+          user.generateToken((err, _user) => {
             if (err) return response.status(400).send(err);
 
-            response.cookie("auth", user.token).json({
+            response.cookie("auth", _user.token).json({
               isAuth: true,
-              id: user._id,
-              email: user.email,
+              id: _user._id,
+              email: _user.email,
+              token: _user.token
             });
           });
         });
