@@ -7,7 +7,7 @@ const User = require("./models/user");
 const { auth } = require("./middlewares/auth");
 const paginate = require("paginate-array");
 const { default: axios } = require("axios");
-
+const cors = require("cors");
 
 const app = express();
 
@@ -25,6 +25,20 @@ mongoose.connect(
     console.log("database is connected");
   }
 );
+
+var corsOptions = {
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions));
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 app.get("/", function (request, response) {
   response.status(200).send("Welcome to login, sign-up api");
