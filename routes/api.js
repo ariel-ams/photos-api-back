@@ -53,9 +53,15 @@ module.exports = {
   register: function (request, response) {
     const newUser = new User(request.body);
 
+    if(!newUser.email)
+        return response.status(400).json({ message: "email is required" });
+
+    if(!newUser.password)
+        return response.status(400).json({ message: "password is required" });
+
     if (newUser.password != newUser.password2)
       return response.status(400).json({ message: "password does not match" });
-
+ 
     User.findOne({ email: newUser.email }, function (error, user) {
       if (user)
         return response
