@@ -118,11 +118,9 @@ app.get("/api/logout", auth, function (request, response) {
   });
 });
 
-app.get("/api/home", auth, function(request, response) {
-
+app.get("/api/photos", auth, function(request, response) {
     axios.get('https://jsonplaceholder.typicode.com/photos')
         .then(_response => {
-
             const results = paginate(_response.data, request.query.page, 10);
             
             response.json({
@@ -134,8 +132,8 @@ app.get("/api/home", auth, function(request, response) {
             response.json({
                 error: error
             });
-        })
-})
+        });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
